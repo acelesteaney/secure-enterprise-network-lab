@@ -1,0 +1,181 @@
+RT-ACANEY#sh run
+Building configuration...
+
+Current configuration : 4209 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname RT-ACANEY
+!
+!
+!
+enable secret 5 $1$mERr$ylt0Ro9lb5zXSFdphIlsS.
+!
+!
+ip dhcp excluded-address 192.168.10.1
+ip dhcp excluded-address 192.168.10.9
+ip dhcp excluded-address 192.168.10.17
+ip dhcp excluded-address 192.168.10.25
+ip dhcp excluded-address 192.168.10.33
+!
+ip dhcp pool DIR
+ network 192.168.10.8 255.255.255.248
+ default-router 192.168.10.9
+ dns-server 192.168.10.34
+ip dhcp pool COMPTA
+ network 192.168.10.0 255.255.255.248
+ default-router 192.168.10.1
+ dns-server 192.168.10.34
+ip dhcp pool RH
+ network 192.168.10.16 255.255.255.248
+ default-router 192.168.10.17
+ dns-server 192.168.10.34
+ip dhcp pool IT
+ network 192.168.10.24 255.255.255.248
+ default-router 192.168.10.25
+ dns-server 192.168.10.34
+ip dhcp pool SRV
+ dns-server 192.168.10.34
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username Ange privilege 15 secret 5 $1$mERr$ylt0Ro9lb5zXSFdphIlsS.
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name acaney.local
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.9 255.255.255.248
+ ip access-group ACL-DIR in
+!
+interface GigabitEthernet0/0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.10.1 255.255.255.248
+ ip access-group ACL-COMPTA in
+!
+interface GigabitEthernet0/0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.10.17 255.255.255.248
+ ip access-group ACL-RH in
+!
+interface GigabitEthernet0/0/0.40
+ encapsulation dot1Q 40
+ ip address 192.168.10.25 255.255.255.248
+ ip access-group ACL-IT in
+!
+interface GigabitEthernet0/0/0.50
+ encapsulation dot1Q 50
+ ip address 192.168.10.33 255.255.255.248
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended ACL-DIR
+ permit udp any eq bootpc any eq bootps
+ permit udp 192.168.10.8 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.8 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.8 0.0.0.7 host 192.168.10.34 eq www
+ deny ip 192.168.10.8 0.0.0.7 192.168.10.0 0.0.0.7
+ deny ip 192.168.10.8 0.0.0.7 192.168.10.16 0.0.0.7
+ deny ip 192.168.10.8 0.0.0.7 192.168.10.24 0.0.0.7
+ deny ip 192.168.10.8 0.0.0.7 192.168.10.32 0.0.0.7
+ip access-list extended ACL-COMPTA
+ permit udp any eq bootpc any eq bootps
+ permit udp 192.168.10.0 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.0 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.0 0.0.0.7 host 192.168.10.34 eq www
+ deny ip 192.168.10.0 0.0.0.7 192.168.10.8 0.0.0.7
+ deny ip 192.168.10.0 0.0.0.7 192.168.10.16 0.0.0.7
+ deny ip 192.168.10.0 0.0.0.7 192.168.10.24 0.0.0.7
+ deny ip 192.168.10.0 0.0.0.7 192.168.10.32 0.0.0.7
+ip access-list extended ACL-RH
+ permit udp any eq bootpc any eq bootps
+ permit udp 192.168.10.16 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.16 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.16 0.0.0.7 host 192.168.10.34 eq www
+ deny ip 192.168.10.16 0.0.0.7 192.168.10.0 0.0.0.7
+ deny ip 192.168.10.16 0.0.0.7 192.168.10.8 0.0.0.7
+ deny ip 192.168.10.16 0.0.0.7 192.168.10.24 0.0.0.7
+ deny ip 192.168.10.16 0.0.0.7 192.168.10.32 0.0.0.7
+ip access-list extended ACL-IT
+ permit udp any eq bootpc any eq bootps
+ permit udp 192.168.10.24 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.24 0.0.0.7 host 192.168.10.34 eq domain
+ permit tcp 192.168.10.24 0.0.0.7 host 192.168.10.34 eq www
+ permit tcp 192.168.10.24 0.0.0.7 host 192.168.10.34 eq 22
+ permit icmp 192.168.10.24 0.0.0.7 192.168.10.0 0.0.0.7
+ permit icmp 192.168.10.24 0.0.0.7 192.168.10.8 0.0.0.7
+ permit icmp 192.168.10.24 0.0.0.7 192.168.10.16 0.0.0.7
+ permit icmp 192.168.10.24 0.0.0.7 192.168.10.32 0.0.0.7
+ permit tcp 192.168.10.24 0.0.0.7 host 192.168.10.25 eq 22
+!
+!
+!
+!
+!
+line con 0
+ password 7 080147400C005747405D
+ login
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+end
+
+
+RT-ACANEY#
