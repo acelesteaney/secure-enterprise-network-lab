@@ -1,11 +1,16 @@
 # Testing and Validation
 
-This directory contains the validation results and screenshots of the ACANEY network infrastructure.
+The ACANEY infrastructure was validated through multiple network and security tests.
 
-- Connectivity tests
-- DHCP tests
-- DNS tests
-- HTTP tests
-- ACL tests
-- SSH tests
-- Port Security tests
+The tests covered:
+
+- VLAN connectivity
+- Inter-VLAN routing
+- DHCP
+- DNS
+- HTTP
+- ACL enforcement
+- SSH
+- Port Security
+
+Screenshots provide evidence of the configuration and successful validation of the infrastructure.
