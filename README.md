@@ -1,4 +1,4 @@
-# ACANEY — Secure Enterprise Network Infrastructure
+# ACANEY - Secure Enterprise Network Infrastructure
 
 ## Project Overview
 
@@ -191,6 +191,6 @@ Future versions may include:
 
 ## Project
 
-**ACANEY — Enterprise Network Infrastructure**
+**ACANEY - Enterprise Network Infrastructure**
 
 Developed as a practical networking and cybersecurity project using Cisco Packet Tracer.
