@@ -10,14 +10,14 @@ service password-encryption
 !
 hostname SW-ACANEY
 !
-enable secret 5 $1$mERr$ylt0Ro9lb5zXSFdphIlsS.
+enable secret 
 !
 !
 !
 ip ssh version 2
 ip domain-name acaney.local
 !
-username Ange secret 5 $1$mERr$ylt0Ro9lb5zXSFdphIlsS.
+username Ange secret 
 !
 !
 !
@@ -186,7 +186,7 @@ ip default-gateway 192.168.10.25
 !
 !
 line con 0
- password 7 080147400C00574740
+ password 
 !
 line vty 0 4
  login local
